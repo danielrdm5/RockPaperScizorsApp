@@ -1,14 +1,21 @@
 ﻿@page "/"
 
 <h1>Rock, Paper, Scizors</h1>
-<button>Reset</button>
+
+@if (!string.IsNullOrWhiteSpace(messageResult))
+{ 
+	<h3 style="color: @messageResultColor">@messageResult</h3>
+}
+
+<button class="btn btn-info" @onclick="Reset">Reset</button>
 
 <div style="display: flex; justify-content: center; margin-bottom: 20px">
-	<img src="paper.jpg" class="imagen" />
+	<img src="@opponentsPlay.Image" class="image" />
 </div>
 
 <div style="display: flex; justify-content: space-around">
-	<img src="paper.jpg" class="image image-selectable" />
-	<img src="scizors.jpg" class="image image-selectable" />
-	<img src="rock.jpg" class="image image-selectable" />
+	@foreach (var play in playsGame)
+	{ 
+		<img src="@play.Image" class="image image-selectable" @onclick="@(() => SelectPlay(play))" />	
+	}
 </div>
